@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <style>
+        * {
+            color: darkblue;
+            font-weight: bolder;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .container {
+            border: solid rgb(6, 200, 122) 6px;
+            width: fit-content;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #form {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .list {
+            position: absolute;
+            margin-left: 50px;
+            border: solid rgb(0, 0, 0) 3px;
+            padding: 20px;
+            display: inline-block;
+        }
+
+        footer {
+            margin-top: 50px;
+        }
+
+        .selfpay {
+            border: solid black 1px;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .tableHead {
+            text-align: center;
+        }
+
+        table tr .td1 {
+            width: 150px;
+            padding: 4px 0;
+        }
+
+        footer span {
+            border: solid black 1px;
+            margin: 5px;
+            padding: 2px 20px;
+        }
+
+        .qty {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <form action="" id="form">
+            <p class="selfpay">SELF PAY SYSTEM</p>
+            <div v-for="(item, index) in items" :key="index">
+                <input type="text" v-model="item.name">&nbsp;&nbsp;
+                <input type="number" v-model="item.qty" class="qty"><br><br>
+            </div>
+        </form>
+
+        <div class="list">
+            <p class="tableHead">Grocery Item Price List</p>
+            <table>
+                <tr>
+                    <td class="td1">Sugar 1Kg</td>
+                    <td>200.00</td>
+                </tr>
+                <tr>
+                    <td class="td1">Tea leaves 200g</td>
+                    <td>300.00</td>
+                </tr>
+                <tr>
+                    <td class="td1">Milkmaid big</td>
+                    <td>600.00</td>
+                </tr>
+                <tr>
+                    <td class="td1">Dhal 1Kg</td>
+                    <td>550.00</td>
+                </tr>
+                <tr>
+                    <td class="td1">Rice samba 1Kg</td>
+                    <td>200.00</td>
+                </tr>
+                <tr>
+                    <td class="td1">Dried chill 100g</td>
+                    <td>200.00</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            <p><span>You have selected</span><span>{{ itemQty() }} </span><span>Items and the total price
+                    is</span><span> Rs : {{ total() }}</span></p>
+        </footer>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                items: [
+                    { name: '', qty: 0, price: 200 },
+                    { name: '', qty: 0, price: 300 },
+                    { name: '', qty: 0, price: 600 },
+                    { name: '', qty: 0, price: 550 },
+                    { name: '', qty: 0, price: 200 },
+                    { name: '', qty: 0, price: 200 }
+                ]
+            },
+            methods: {
+                itemQty() {
+                    return this.items.filter(item => item.qty > 0).length;
+                },
+                total() {
+                    return this.items.reduce((sum, item) => sum + (item.qty * item.price), 0);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
